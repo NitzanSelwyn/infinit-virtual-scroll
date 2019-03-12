@@ -1,0 +1,29 @@
+
+<h1 id="title">WORKS</h1>
+
+<!-- <div *ngFor="let item of productsList">
+  <p>{{item.product}}</p>
+  <img src="{{item.imageUrl}}" />
+
+  <p>{{item.price}}</p>
+</div> -->
+
+<ng-container >
+
+  <cdk-virtual-scroll-viewport itemSize="500" (scrolledIndexChange)="getBatch()">
+    
+    <li  *cdkVirtualFor="let item of productsList; let i = index; trackBy: trackByIdx" class="animated lightSpeedIn">
+      <p>ID:{{item._id}} {{item.product}}</p>
+      <img src="{{item.imageUrl}}" />
+      
+      <p>{{item.price}}</p>
+    </li>
+
+
+    
+  </cdk-virtual-scroll-viewport>
+  
+</ng-container>
+
+
+  
