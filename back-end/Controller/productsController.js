@@ -40,6 +40,24 @@ exports.filterProducts = (req, res) => {
     productModel
       .aggregate([
         { $skip: req.body.skip },
+        { $sort: { product: 1 } },
+        { $limit: 10 },
+        { $match: { product: { $regex: req.body.search } } }
+      ])
+      .exec((err, docs) => {
+        res.send(docs);
+      });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
+exports.sortByName = (req, res) => {
+  try {
+    productModel
+      .aggregate([
+        { $skip: req.body.skip },
         { $sort: { _id: 1 } },
         { $limit: 10 },
         { $match: { product: { $regex: req.body.search } } }

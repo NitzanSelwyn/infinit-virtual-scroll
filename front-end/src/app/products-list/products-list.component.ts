@@ -58,17 +58,30 @@ export class ProductsListComponent implements OnInit {
   }
 
   getProdIfDown(index) {
-    this.service.GetProducts(index).subscribe(data => {
-      this.viewport.scrollToIndex(0);
-      this.productsList = data;
-    });
+    if (this.searchBox !== "") {
+      this.service.GetProducts(index).subscribe(data => {
+        this.viewport.scrollToIndex(0);
+        this.productsList = data;
+      });
+    }else{
+      this.service.FilterProducts(this.index, this.searchBox).subscribe(data => {
+        console.log(data);
+        this.productsList = data;
+      });
+    }
   }
 
   getProdIfUp(index) {
-    this.service.GetProducts(index).subscribe(data => {
-      this.viewport.scrollToIndex(this.viewport.getDataLength() + 2);
-      this.productsList = data;
-    });
+    if (this.searchBox !== "") {
+      this.service.GetProducts(index).subscribe(data => {
+        this.viewport.scrollToIndex(this.viewport.getDataLength() + 2);
+        this.productsList = data;
+      });
+    }else{
+      this.service.FilterProducts(this.index, this.searchBox).subscribe(data => {
+        this.productsList = data;
+      });
+    }
   }
 
   trackByIdx(i) {
