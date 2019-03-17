@@ -13,4 +13,8 @@ export class ProducsService {
     return this.http.post<any>('http://localhost:3000/api/getProducts',{skip:index})
   }
 
+  FilterProducts(index,search): Observable<any> {
+    return this.http.post<any>('http://localhost:3000/api/filter',{skip:index,search:search})
+  }
+
 }

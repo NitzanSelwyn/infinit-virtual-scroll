@@ -19,9 +19,18 @@ export class ProductsListComponent implements OnInit {
   productsList = [];
   offset = new BehaviorSubject(null);
   infinite: Observable<any[]>;
+  searchBox: string;
 
   ngOnInit() {
     this.service.GetProducts(this.index).subscribe(data => {
+      this.productsList = data;
+    });
+  }
+
+  filterProdcuts() {
+    this.index = 0;
+    this.service.FilterProducts(this.index, this.searchBox).subscribe(data => {
+      console.log(data);
       this.productsList = data;
     });
   }
@@ -35,6 +44,7 @@ export class ProductsListComponent implements OnInit {
       if (this.index === 0) {
         return;
       } else {
+        return;
         // this.index -= 10;
         // this.getProdIfUp(this.index);
       }
@@ -45,7 +55,6 @@ export class ProductsListComponent implements OnInit {
       }
     }
     console.log(this.index);
-
   }
 
   getProdIfDown(index) {
@@ -66,17 +75,3 @@ export class ProductsListComponent implements OnInit {
     return i;
   }
 }
-
-// nextBatch(e, offset) {
-//   if (this.theEnd) {
-//     return;
-//   }
-
-//   const end = this.viewport.getRenderedRange().end;
-//   const total = this.viewport.getDataLength();
-//   console.log(`${end}, '>=', ${total}`);
-//   if (end === total) {
-//     this.getBatch();
-//   }
-
-// }

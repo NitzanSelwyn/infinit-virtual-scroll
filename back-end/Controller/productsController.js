@@ -20,7 +20,30 @@ exports.initializeData = () => {
 exports.getProducts = (req, res) => {
   try {
     productModel
-      .aggregate([{ $skip: req.body.skip },{ $sort : { _id : 1 } }, { $limit: 10 }, { $match: {} }])
+      .aggregate([
+        { $skip: req.body.skip },
+        { $sort: { _id: 1 } },
+        { $limit: 10 },
+        { $match: {} }
+      ])
+      .exec((err, docs) => {
+        res.send(docs);
+      });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+};
+
+exports.filterProducts = (req, res) => {
+  try {
+    productModel
+      .aggregate([
+        { $skip: req.body.skip },
+        { $sort: { _id: 1 } },
+        { $limit: 10 },
+        { $match: { product: { $regex: req.body.search } } }
+      ])
       .exec((err, docs) => {
         res.send(docs);
       });
