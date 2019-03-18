@@ -12,4 +12,7 @@ router.post('/getProducts',productController.getProducts)
 
 router.post('/filter',productController.filterProducts)
 
+router.post('/sortByName',productController.sortByName)
+
+
 module.exports = router;

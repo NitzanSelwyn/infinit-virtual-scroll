@@ -1,7 +1,8 @@
 <h1 id="title">WORKS</h1>
 
-<input  placeholder="Search" [(ngModel)]="searchBox" (ngModelChange)="filterProdcuts()"  name="searchBox"/>
-<!-- <button (click)="filterProdcuts()"></button> -->
+<input  placeholder="Search" [(ngModel)]="searchBox" (ngModelChange)="this.searchSubject.next($event)"  name="searchBox"/>
+
+<mat-checkbox (change)="onCheckBoxChange()" [(ngModel)]="sortByName">Sort By Name</mat-checkbox>
 
 <cdk-virtual-scroll-viewport itemSize="500" (scrolledIndexChange)="getBatch()">
   <li

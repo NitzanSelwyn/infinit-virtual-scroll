@@ -58,9 +58,9 @@ exports.sortByName = (req, res) => {
     productModel
       .aggregate([
         { $skip: req.body.skip },
-        { $sort: { _id: 1 } },
+        { $sort: { product: 1 } },
         { $limit: 10 },
-        { $match: { product: { $regex: req.body.search } } }
+        { $match: {} }
       ])
       .exec((err, docs) => {
         res.send(docs);
